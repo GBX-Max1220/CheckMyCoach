@@ -1,0 +1,72 @@
+% UCS Engine Classification Pipeline
+% Compile: pdflatex fig3_ucs_engine.tex
+\documentclass[tikz, border=10pt]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{mathptmx}
+
+\usetikzlibrary{shapes.geometric, arrows, positioning, fit, backgrounds}
+
+\begin{document}
+
+\tikzstyle{io} = [trapezium, trapezium left angle=70, trapezium right angle=110,
+                  minimum width=1.8cm, minimum height=0.7cm, text centered, draw=black,
+                  fill=blue!10, font=\small]
+\tikzstyle{stage} = [rectangle, minimum width=3.0cm, minimum height=0.9cm,
+                     text centered, draw=black, fill=blue!20, font=\small\bfseries]
+\tikzstyle{decision} = [diamond, minimum width=1.8cm, minimum height=0.5cm,
+                        aspect=2.5, text centered, draw=black, fill=green!15, font=\small]
+\tikzstyle{arrow} = [thick, ->, >=stealth]
+\tikzstyle{label} = [font=\scriptsize\itshape]
+
+\begin{figure}
+\centering
+\begin{tikzpicture}[node distance=1.0cm]
+
+% Input
+\node (input) [io] {LLM Response};
+
+% Stage 1
+\node (s1) [stage, below of=input, fill=blue!20] {Stage 1: Pattern Matching};
+\node (s1note) [label, right of=s1, xshift=3.0cm] {Regex patterns:\\superiority, hedging,\\directional language};
+\node (s1dec) [decision, below of=s1, yshift=-0.3cm] {Confident\\match?};
+
+% Stage 2
+\node (s2) [stage, below of=s1dec, yshift=-0.3cm, xshift=-2.5cm, fill=orange!20] {Stage 2: Structured\\Extraction};
+\node (s2note) [label, right of=s2, xshift=3.0cm] {LLM extracts 5 binary features:\\claims\_superiority, \\has\_directional\_claim,\\mentions\_no\_difference,\\has\_hedging, cites\_evidence};
+
+% Stage 3
+\node (s3) [stage, below of=s2, yshift=-0.2cm, fill=green!20] {Stage 3: Deterministic\\Mapping};
+\node (s3note) [label, right of=s3, xshift=3.0cm] {Decision tree:\\32 feature combinations\\$\rightarrow$ UCS score};
+
+% Stage 4
+\node (s4) [stage, below of=s3, yshift=-0.4cm, xshift=2.5cm, fill=red!20] {Stage 4: LLM Judge\\Fallback};
+\node (s4note) [label, right of=s4, xshift=3.0cm] {When features are\\contradictory/unreliable};
+
+% Output
+\node (output_s1) [io, below of=s1dec, yshift=-0.3cm, xshift=2.5cm, fill=green!10] {Direct UCS Score};
+\node (output) [io, below of=s3, yshift=-0.2cm, fill=blue!10] {UCS Score};
+
+% Arrows
+\draw [arrow] (input) -- (s1);
+\draw [arrow] (s1) -- (s1dec);
+\draw [arrow] (s1dec) -- node[above, font=\small] {Yes} (output_s1);
+\draw [arrow] (s1dec) -- node[right, font=\small] {No} (s2);
+\draw [arrow] (s2) -- (s3);
+\draw [arrow] (s3) -- (output);
+\draw [darrow, bend right=30] (s3.east) to node[right, font=\tiny] {Low confidence} (s4.west);
+\draw [arrow] (s4) -- ++(0,-0.8) -| (output.south);
+
+% Background boxes
+\begin{scope}[on background layer]
+  \node [fill=blue!5, rounded corners, fit=(s1)(s1note)(s1dec), inner sep=5pt] {};
+  \node [fill=orange!5, rounded corners, fit=(s2)(s2note), inner sep=5pt] {};
+  \node [fill=green!5, rounded corners, fit=(s3)(s3note), inner sep=5pt] {};
+  \node [fill=red!5, rounded corners, fit=(s4)(s4note), inner sep=5pt] {};
+\end{scope}
+
+\end{tikzpicture}
+\caption{UCS Engine four-stage classification pipeline. Easy cases are resolved by pattern matching (Stage 1); the remainder proceed to structured LLM extraction (Stage 2) and deterministic mapping (Stage 3). A fallback LLM judge (Stage 4) handles low-confidence cases.}
+\label{fig:ucs_engine}
+\end{figure}
+
+\end{document}

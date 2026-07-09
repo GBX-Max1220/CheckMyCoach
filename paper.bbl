@@ -1,0 +1,191 @@
+%%% -*-BibTeX-*-
+%%% Do NOT edit. File created by BibTeX with style
+%%% ACM-Reference-Format-Journals [18-Jan-2012].
+
+\begin{thebibliography}{13}
+
+%%% ====================================================================
+%%% NOTE TO THE USER: you can override these defaults by providing
+%%% customized versions of any of these macros before the \bibliography
+%%% command.  Each of them MUST provide its own final punctuation,
+%%% except for \shownote{} and \showURL{}.  The latter two
+%%% do not use final punctuation, in order to avoid confusing it with
+%%% the Web address.
+%%%
+%%% To suppress output of a particular field, define its macro to expand
+%%% to an empty string, or better, \unskip, like this:
+%%%
+%%% \newcommand{\showURL}[1]{\unskip}   % LaTeX syntax
+%%%
+%%% \def \showURL #1{\unskip}           % plain TeX syntax
+%%%
+%%% ====================================================================
+
+\ifx \showCODEN    \undefined \def \showCODEN     #1{\unskip}     \fi
+\ifx \showISBNx    \undefined \def \showISBNx     #1{\unskip}     \fi
+\ifx \showISBNxiii \undefined \def \showISBNxiii  #1{\unskip}     \fi
+\ifx \showISSN     \undefined \def \showISSN      #1{\unskip}     \fi
+\ifx \showLCCN     \undefined \def \showLCCN      #1{\unskip}     \fi
+\ifx \shownote     \undefined \def \shownote      #1{#1}          \fi
+\ifx \showarticletitle \undefined \def \showarticletitle #1{#1}   \fi
+\ifx \showURL      \undefined \def \showURL       {\relax}        \fi
+% The following commands are used for tagged output and should be
+% invisible to TeX
+\providecommand\bibfield[2]{#2}
+\providecommand\bibinfo[2]{#2}
+\providecommand\natexlab[1]{#1}
+\providecommand\showeprint[2][]{arXiv:#2}
+
+\bibitem[Band et~al\mbox{.}(2024)]%
+        {band2024linguistic}
+\bibfield{author}{\bibinfo{person}{Neil Band}, \bibinfo{person}{Xuechen Li},
+  \bibinfo{person}{Tengyu Ma}, {and} \bibinfo{person}{Tatsunori Hashimoto}.}
+  \bibinfo{year}{2024}\natexlab{}.
+\newblock \showarticletitle{Linguistic Calibration of Long-Form Generations}.
+  In \bibinfo{booktitle}{\emph{International Conference on Machine Learning
+  (ICML)}}.
+\newblock
+
+
+\bibitem[Bu{\c{c}}inca et~al\mbox{.}(2021)]%
+        {bucinca2021trust}
+\bibfield{author}{\bibinfo{person}{Zana Bu{\c{c}}inca},
+  \bibinfo{person}{Maja~Barbara Malaya}, {and} \bibinfo{person}{Krzysztof~Z
+  Gajos}.} \bibinfo{year}{2021}\natexlab{}.
+\newblock \showarticletitle{To trust or to think: Cognitive forcing functions
+  can reduce overreliance on AI in AI-assisted decision making}.
+\newblock \bibinfo{journal}{\emph{Proceedings of the ACM on Human-Computer
+  Interaction (CSCW)}} \bibinfo{volume}{5}, \bibinfo{number}{CSCW1}
+  (\bibinfo{year}{2021}), \bibinfo{pages}{1--21}.
+\newblock
+
+
+\bibitem[Guo et~al\mbox{.}(2017)]%
+        {guo2017calibration}
+\bibfield{author}{\bibinfo{person}{Chuan Guo}, \bibinfo{person}{Geoff Pleiss},
+  \bibinfo{person}{Yu Sun}, {and} \bibinfo{person}{Kilian~Q Weinberger}.}
+  \bibinfo{year}{2017}\natexlab{}.
+\newblock \showarticletitle{On calibration of modern neural networks}. In
+  \bibinfo{booktitle}{\emph{International Conference on Machine Learning
+  (ICML)}}.
+\newblock
+
+
+\bibitem[Jerez-Fernandez et~al\mbox{.}(2014)]%
+        {jerez2014precision}
+\bibfield{author}{\bibinfo{person}{Alexandra Jerez-Fernandez},
+  \bibinfo{person}{Ashley~N Angulo}, {and} \bibinfo{person}{Daniel~M
+  Oppenheimer}.} \bibinfo{year}{2014}\natexlab{}.
+\newblock \showarticletitle{Precision and the accuracy of information: The role
+  of numerical precision in advice taking}.
+\newblock \bibinfo{journal}{\emph{Journal of Behavioral Decision Making}}
+  \bibinfo{volume}{27}, \bibinfo{number}{5} (\bibinfo{year}{2014}),
+  \bibinfo{pages}{435--444}.
+\newblock
+
+
+\bibitem[Kadavath et~al\mbox{.}(2022)]%
+        {kadavath2022language}
+\bibfield{author}{\bibinfo{person}{Saurav Kadavath}, \bibinfo{person}{Tom
+  Conerly}, \bibinfo{person}{Amanda Askell}, \bibinfo{person}{Tom Henighan},
+  \bibinfo{person}{Dawn Drain}, \bibinfo{person}{Ethan Perez},
+  \bibinfo{person}{Nicholas Schiefer}, \bibinfo{person}{Zac Hatfield-Dodds},
+  \bibinfo{person}{Nova DasSarma}, \bibinfo{person}{Eli Tran-Johnson},
+  {et~al\mbox{.}}} \bibinfo{year}{2022}\natexlab{}.
+\newblock \showarticletitle{Language Models (Mostly) Know What They Know}.
+\newblock \bibinfo{journal}{\emph{arXiv preprint arXiv:2207.05221}}
+  (\bibinfo{year}{2022}).
+\newblock
+
+
+\bibitem[Kahneman(2011)]%
+        {kahneman2011thinking}
+\bibfield{author}{\bibinfo{person}{Daniel Kahneman}.}
+  \bibinfo{year}{2011}\natexlab{}.
+\newblock \bibinfo{booktitle}{\emph{Thinking, Fast and Slow}}.
+\newblock \bibinfo{publisher}{Farrar, Straus and Giroux}.
+\newblock
+
+
+\bibitem[Kuhn et~al\mbox{.}(2023)]%
+        {kuhn2023semantic}
+\bibfield{author}{\bibinfo{person}{Lorenz Kuhn}, \bibinfo{person}{Yarin Gal},
+  {and} \bibinfo{person}{Sebastian Farquhar}.} \bibinfo{year}{2023}\natexlab{}.
+\newblock \showarticletitle{Semantic Uncertainty: Linguistic Invariances for
+  Uncertainty Estimation in Natural Language Generation}. In
+  \bibinfo{booktitle}{\emph{International Conference on Learning
+  Representations (ICLR)}}.
+\newblock
+
+
+\bibitem[Lee and See(2004)]%
+        {lee2004trust}
+\bibfield{author}{\bibinfo{person}{John~D Lee} {and} \bibinfo{person}{Katrina~A
+  See}.} \bibinfo{year}{2004}\natexlab{}.
+\newblock \showarticletitle{Trust in automation: Designing for appropriate
+  reliance}.
+\newblock \bibinfo{journal}{\emph{Human Factors}} \bibinfo{volume}{46},
+  \bibinfo{number}{1} (\bibinfo{year}{2004}), \bibinfo{pages}{50--80}.
+\newblock
+
+
+\bibitem[Lin et~al\mbox{.}(2022)]%
+        {lin2022teaching}
+\bibfield{author}{\bibinfo{person}{Stephanie Lin}, \bibinfo{person}{Jacob
+  Hilton}, {and} \bibinfo{person}{Owain Evans}.}
+  \bibinfo{year}{2022}\natexlab{}.
+\newblock \showarticletitle{Teaching Models to Express Their Uncertainty in
+  Words}. In \bibinfo{booktitle}{\emph{International Conference on Machine
+  Learning (ICML)}}.
+\newblock
+
+
+\bibitem[Mosier et~al\mbox{.}(1998)]%
+        {mosier1998automation}
+\bibfield{author}{\bibinfo{person}{Kathleen~L Mosier}, \bibinfo{person}{Linda~J
+  Skitka}, \bibinfo{person}{Susan Heers}, {and} \bibinfo{person}{Mark
+  Burdick}.} \bibinfo{year}{1998}\natexlab{}.
+\newblock \showarticletitle{Automation bias: Decision making and performance in
+  high-tech cockpits}.
+\newblock \bibinfo{journal}{\emph{The International Journal of Aviation
+  Psychology}} \bibinfo{volume}{8}, \bibinfo{number}{1} (\bibinfo{year}{1998}),
+  \bibinfo{pages}{47--63}.
+\newblock
+
+
+\bibitem[Schultze and Loschelder(2021)]%
+        {schultze2020numeric}
+\bibfield{author}{\bibinfo{person}{Thomas Schultze} {and}
+  \bibinfo{person}{David~D Loschelder}.} \bibinfo{year}{2021}\natexlab{}.
+\newblock \showarticletitle{How Numeric Advice Precision Affects Advice
+  Taking}.
+\newblock \bibinfo{journal}{\emph{Journal of Behavioral Decision Making}}
+  \bibinfo{volume}{34}, \bibinfo{number}{3} (\bibinfo{year}{2021}),
+  \bibinfo{pages}{303--310}.
+\newblock
+
+
+\bibitem[Yin et~al\mbox{.}(2019)]%
+        {yin2019accuracy}
+\bibfield{author}{\bibinfo{person}{Ming Yin}, \bibinfo{person}{Jennifer~Wortman
+  Vaughan}, {and} \bibinfo{person}{Hanna Wallach}.}
+  \bibinfo{year}{2019}\natexlab{}.
+\newblock \showarticletitle{Understanding the Effect of Accuracy on Trust in
+  Machine Learning Models}. In \bibinfo{booktitle}{\emph{Proceedings of the
+  2019 CHI Conference on Human Factors in Computing Systems (CHI)}}.
+\newblock
+
+
+\bibitem[Zhang and Schwarz(2012)]%
+        {zhang2012precision}
+\bibfield{author}{\bibinfo{person}{Yan Zhang} {and} \bibinfo{person}{Norbert
+  Schwarz}.} \bibinfo{year}{2012}\natexlab{}.
+\newblock \showarticletitle{The power of precise numbers: A conversational
+  logic perspective}.
+\newblock \bibinfo{journal}{\emph{Journal of Experimental Social Psychology}}
+  \bibinfo{volume}{48}, \bibinfo{number}{4} (\bibinfo{year}{2012}),
+  \bibinfo{pages}{944--948}.
+\newblock
+
+
+\end{thebibliography}

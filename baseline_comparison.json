@@ -1,0 +1,146 @@
+[
+  {
+    "id": "RCV-006-Overconfident",
+    "cat": "Overconfident",
+    "orig": 3,
+    "corr": 2
+  },
+  {
+    "id": "REC-002-Overconfident",
+    "cat": "Overconfident",
+    "orig": 0,
+    "corr": 3
+  },
+  {
+    "id": "FAC-010-Overconfident",
+    "cat": "Overconfident",
+    "orig": 2,
+    "corr": -1
+  },
+  {
+    "id": "RCV-003-Overconfident",
+    "cat": "Overconfident",
+    "orig": 3,
+    "corr": 3
+  },
+  {
+    "id": "SCE-015-Overconfident",
+    "cat": "Overconfident",
+    "orig": 1,
+    "corr": 2
+  },
+  {
+    "id": "BND-011-Overconfident",
+    "cat": "Overconfident",
+    "orig": -1,
+    "corr": 2
+  },
+  {
+    "id": "RCV-006-Pseudo-precise",
+    "cat": "Pseudo-precise",
+    "orig": 3,
+    "corr": 3
+  },
+  {
+    "id": "REC-002-Pseudo-precise",
+    "cat": "Pseudo-precise",
+    "orig": 0,
+    "corr": 3
+  },
+  {
+    "id": "FAC-010-Pseudo-precise",
+    "cat": "Pseudo-precise",
+    "orig": 3,
+    "corr": 3
+  },
+  {
+    "id": "RCV-003-Pseudo-precise",
+    "cat": "Pseudo-precise",
+    "orig": 3,
+    "corr": 3
+  },
+  {
+    "id": "SCE-015-Pseudo-precise",
+    "cat": "Pseudo-precise",
+    "orig": 3,
+    "corr": 2
+  },
+  {
+    "id": "BND-011-Pseudo-precise",
+    "cat": "Pseudo-precise",
+    "orig": 3,
+    "corr": 2
+  },
+  {
+    "id": "RCV-006-Hedged",
+    "cat": "Hedged",
+    "orig": 3,
+    "corr": 3
+  },
+  {
+    "id": "REC-002-Hedged",
+    "cat": "Hedged",
+    "orig": 3,
+    "corr": 3
+  },
+  {
+    "id": "FAC-010-Hedged",
+    "cat": "Hedged",
+    "orig": 0,
+    "corr": 0
+  },
+  {
+    "id": "RCV-003-Hedged",
+    "cat": "Hedged",
+    "orig": 3,
+    "corr": 3
+  },
+  {
+    "id": "SCE-015-Hedged",
+    "cat": "Hedged",
+    "orig": -1,
+    "corr": -1
+  },
+  {
+    "id": "BND-011-Hedged",
+    "cat": "Hedged",
+    "orig": -1,
+    "corr": -1
+  },
+  {
+    "id": "RCV-006-Calibrated",
+    "cat": "Calibrated",
+    "orig": 3,
+    "corr": 3
+  },
+  {
+    "id": "REC-002-Calibrated",
+    "cat": "Calibrated",
+    "orig": 3,
+    "corr": 3
+  },
+  {
+    "id": "FAC-010-Calibrated",
+    "cat": "Calibrated",
+    "orig": 3,
+    "corr": 3
+  },
+  {
+    "id": "RCV-003-Calibrated",
+    "cat": "Calibrated",
+    "orig": 3,
+    "corr": 3
+  },
+  {
+    "id": "SCE-015-Calibrated",
+    "cat": "Calibrated",
+    "orig": 3,
+    "corr": 3
+  },
+  {
+    "id": "BND-011-Calibrated",
+    "cat": "Calibrated",
+    "orig": -1,
+    "corr": -1
+  }
+]

@@ -1,0 +1,103 @@
+% CheckMyCoach Pipeline Architecture
+% Compile: pdflatex fig1_pipeline.tex
+\documentclass[tikz, border=10pt]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{mathptmx}  % Times-like font matching ACM
+
+\usetikzlibrary{shapes.geometric, arrows, positioning, fit, backgrounds}
+
+\begin{document}
+
+\tikzstyle{io} = [trapezium, trapezium left angle=70, trapezium right angle=110,
+                  minimum width=2cm, minimum height=0.8cm, text centered, draw=black,
+                  fill=blue!10, font=\small]
+\tikzstyle{stage} = [rectangle, minimum width=3.2cm, minimum height=1.0cm,
+                     text centered, draw=black, fill=blue!20, font=\small\bfseries]
+\tikzstyle{diag} = [rectangle, minimum width=3.2cm, minimum height=0.8cm,
+                    text centered, draw=black, fill=orange!20, font=\small]
+\tikzstyle{decision} = [diamond, minimum width=2.2cm, minimum height=0.6cm,
+                        aspect=2.5, text centered, draw=black, fill=green!15, font=\small]
+\tikzstyle{arrow} = [thick, ->, >=stealth]
+\tikzstyle{darrow} = [thick, <->, >=stealth]
+\tikzstyle{label} = [font=\scriptsize\itshape]
+
+\begin{figure}
+\centering
+\begin{tikzpicture}[node distance=1.2cm]
+
+% Input
+\node (input) [io] {LLM Output};
+
+% Stage 1 - Detection
+\node (m1) [stage, below of=input, fill=blue!20] {M1 Detection};
+\node (m1dec) [decision, below of=m1, yshift=-0.3cm] {UCS $\geq$ 2?};
+
+% Labels
+\node (m1note) [label, right of=m1dec, xshift=3.0cm] {UCS score from UCS Engine\\Evidence Citation Signal};
+
+% Pass path (right)
+\node (pass) [io, right of=m1dec, xshift=3.5cm, fill=green!10] {Pass Through};
+\node (output_pass) [io, below of=pass, fill=blue!10] {Corrected Output};
+
+% Fail path (down)
+\node (m2) [stage, below of=m1dec, yshift=-0.3cm, fill=orange!20] {M2 Diagnosis};
+
+\node (template) [diag, below of=m2, yshift=-0.2cm, xshift=-2.0cm] {Template\\Dominance};
+\node (cue) [diag, below of=m2, yshift=-0.2cm] {Cue\\Leakage};
+\node (context) [diag, below of=m2, yshift=-0.2cm, xshift=2.0cm] {Context\\Mismatch};
+
+% Stage 3 - Correction
+\node (m3) [stage, below of=template, yshift=-0.2cm, xshift=2.0cm, fill=red!20] {M3 Correction};
+\node (m3prompt) [label, right of=m3, xshift=3.0cm] {Type-specific LLM prompt\\$\rightarrow$ GPT-4o-mini};
+
+% Stage 4 - Validation
+\node (m4) [stage, below of=m3, yshift=-0.3cm, fill=violet!15] {M4 Validation};
+\node (m4checks) [label, right of=m4, xshift=3.0cm] {Length 50--400\%\\Assertion check\\Non-empty\\Non-copy};
+
+\node (m4dec) [decision, below of=m4, yshift=-0.3cm] {All checks\\pass?};
+
+% Output
+\node (output_correct) [io, below of=m4dec, yshift=-0.3cm, xshift=-2.0cm, fill=blue!10] {Corrected Output};
+\node (output_fallback) [io, below of=m4dec, yshift=-0.3cm, xshift=2.0cm, fill=yellow!10] {Fallback: Original};
+
+% Arrows
+\draw [arrow] (input) -- (m1);
+\draw [arrow] (m1) -- (m1dec);
+
+% Pass path
+\draw [arrow] (m1dec) -- node[above, font=\small] {Yes} (pass);
+\draw [arrow] (pass) -- (output_pass);
+
+% Fail path
+\draw [arrow] (m1dec) -- node[right, font=\small] {No} (m2);
+\draw [arrow] (m2) -- (template);
+\draw [arrow] (m2) -- (cue);
+\draw [arrow] (m2) -- (context);
+
+% Diagnosis to Correction
+\draw [arrow] (template) -- (m3);
+\draw [arrow] (cue) -- (m3);
+\draw [arrow] (context) -- (m3);
+
+% Correction to Validation
+\draw [arrow] (m3) -- (m4);
+\draw [arrow] (m4) -- (m4dec);
+
+% Validation output paths
+\draw [arrow] (m4dec) -- node[left, font=\small] {Yes} (output_correct);
+\draw [arrow] (m4dec) -- node[right, font=\small] {No} (output_fallback);
+
+% Background boxes
+\begin{scope}[on background layer]
+  \node [fill=blue!5, rounded corners, fit=(m1)(m1dec)(m1note), inner sep=6pt] {};
+  \node [fill=orange!5, rounded corners, fit=(m2)(template)(cue)(context), inner sep=6pt] {};
+  \node [fill=red!5, rounded corners, fit=(m3)(m3prompt), inner sep=6pt] {};
+  \node [fill=violet!5, rounded corners, fit=(m4)(m4checks)(m4dec), inner sep=6pt] {};
+\end{scope}
+
+\end{tikzpicture}
+\caption{CheckMyCoach four-stage calibration pipeline. Outputs classified as UCS = 0 (Overconfident) or UCS = 1 (Pseudo-precise) by the M1 Detection stage are diagnosed by type (M2), corrected via type-specific LLM prompts (M3), and validated through four sanity checks (M4). Outputs failing validation fall back to the original.}
+\label{fig:pipeline}
+\end{figure}
+
+\end{document}

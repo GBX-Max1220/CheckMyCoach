@@ -1,0 +1,76 @@
+This is BibTeX, Version 0.99e
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: paper.aux
+Reallocating 'name_of_file' (item size: 1) to 21 items.
+The style file: ACM-Reference-Format.bst
+Reallocating 'name_of_file' (item size: 1) to 11 items.
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Reallocating 'wiz_functions' (item size: 4) to 6000 items.
+Database file #1: references.bib
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Reallocating 'wiz_functions' (item size: 4) to 9000 items.
+Reallocating 'glb_str_end' (item size: 4) to 20 items.
+Reallocating 'glb_str_ptr' (item size: 4) to 20 items.
+Reallocating 'global_strs' (item size: 1) to 4000000 items.
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Warning--empty publisher in band2024linguistic
+Warning--empty address in band2024linguistic
+Warning--page numbers missing in both pages and numpages fields in band2024linguistic
+Warning--empty publisher in guo2017calibration
+Warning--empty address in guo2017calibration
+Warning--page numbers missing in both pages and numpages fields in guo2017calibration
+Warning--no number and no volume in kadavath2022language
+Warning--page numbers missing in both pages and numpages fields in kadavath2022language
+Warning--empty address in kahneman2011thinking
+Warning--empty publisher in kuhn2023semantic
+Warning--empty address in kuhn2023semantic
+Warning--page numbers missing in both pages and numpages fields in kuhn2023semantic
+Warning--empty publisher in lin2022teaching
+Warning--empty address in lin2022teaching
+Warning--page numbers missing in both pages and numpages fields in lin2022teaching
+Warning--empty publisher in yin2019accuracy
+Warning--empty address in yin2019accuracy
+Warning--page numbers missing in both pages and numpages fields in yin2019accuracy
+You've used 13 entries,
+            6273 wiz_defined-function locations,
+            1586 strings with 20536 characters,
+and the built_in function-call counts, 14535 in all, are:
+= -- 1910
+> -- 477
+< -- 0
++ -- 162
+- -- 163
+* -- 1019
+:= -- 1373
+add.period$ -- 61
+call.type$ -- 13
+change.case$ -- 96
+chr.to.int$ -- 13
+cite$ -- 31
+duplicate$ -- 1281
+empty$ -- 910
+format.name$ -- 211
+if$ -- 3638
+int.to.chr$ -- 2
+int.to.str$ -- 1
+missing$ -- 55
+newline$ -- 138
+num.names$ -- 91
+pop$ -- 571
+preamble$ -- 1
+purify$ -- 200
+quote$ -- 0
+skip$ -- 435
+stack$ -- 0
+substring$ -- 942
+swap$ -- 99
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 277
+warning$ -- 18
+while$ -- 73
+width$ -- 0
+write$ -- 274
+(There were 18 warnings)

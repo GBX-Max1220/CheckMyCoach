@@ -1,0 +1,130 @@
+{
+  "results": [
+    {
+      "question": "Should I squat below parallel?",
+      "raw_response": "**Yes, if you can do so safely.** Squatting below parallel (hips lower than knees) maximizes glute a",
+      "raw_ucs": 2,
+      "cal_ucs": 2,
+      "cal_delta": 0.0,
+      "cal_needed": false,
+      "cal_failure_type": null,
+      "cal_m4_pass": true,
+      "latency_raw_s": 2.2,
+      "latency_cal_s": 1.0
+    },
+    {
+      "question": "Is it safe to deadlift every day?",
+      "raw_response": "No, it is generally not safe to deadlift every day. Deadlifting places high demands on your central ",
+      "raw_ucs": 2,
+      "cal_ucs": 2,
+      "cal_delta": 0.0,
+      "cal_needed": false,
+      "cal_failure_type": null,
+      "cal_m4_pass": true,
+      "latency_raw_s": 1.6,
+      "latency_cal_s": 0.8
+    },
+    {
+      "question": "How many sets per exercise for muscle growth?",
+      "raw_response": "For muscle growth (hypertrophy), the general recommendation is **3–5 working sets per exercise** per",
+      "raw_ucs": 2,
+      "cal_ucs": 2,
+      "cal_delta": 0.0,
+      "cal_needed": false,
+      "cal_failure_type": null,
+      "cal_m4_pass": true,
+      "latency_raw_s": 1.0,
+      "latency_cal_s": 0.5
+    },
+    {
+      "question": "Should beginners use free weights or machines?",
+      "raw_response": "**Free weights** are generally better for beginners because they build functional strength, improve ",
+      "raw_ucs": 2,
+      "cal_ucs": 2,
+      "cal_delta": 0.0,
+      "cal_needed": false,
+      "cal_failure_type": null,
+      "cal_m4_pass": true,
+      "latency_raw_s": 1.5,
+      "latency_cal_s": 0.5
+    },
+    {
+      "question": "What is the ideal rep range for strength?",
+      "raw_response": "The ideal rep range for maximal strength is **1–5 reps per set**, using heavy loads (85%+ of your on",
+      "raw_ucs": 2,
+      "cal_ucs": 2,
+      "cal_delta": 0.0,
+      "cal_needed": false,
+      "cal_failure_type": null,
+      "cal_m4_pass": true,
+      "latency_raw_s": 0.9,
+      "latency_cal_s": 0.6
+    },
+    {
+      "question": "Is cardio before or after weights better?",
+      "raw_response": "For most people, **weights before cardio** is better. This approach preserves energy for proper lift",
+      "raw_ucs": 2,
+      "cal_ucs": 2,
+      "cal_delta": 0.0,
+      "cal_needed": false,
+      "cal_failure_type": null,
+      "cal_m4_pass": true,
+      "latency_raw_s": 1.2,
+      "latency_cal_s": 0.7
+    },
+    {
+      "question": "How long should I rest between sets?",
+      "raw_response": "**General guidelines:**\n- **Strength** (heavy, 1–5 reps): **3–5 minutes**\n- **Hypertrophy** (moderat",
+      "raw_ucs": 2,
+      "cal_ucs": 2,
+      "cal_delta": 0.0,
+      "cal_needed": false,
+      "cal_failure_type": null,
+      "cal_m4_pass": true,
+      "latency_raw_s": 1.4,
+      "latency_cal_s": 1.0
+    },
+    {
+      "question": "Should I train to failure on every set?",
+      "raw_response": "No. Training to failure on every set can lead to excessive fatigue, slower recovery, and increased i",
+      "raw_ucs": 2,
+      "cal_ucs": 2,
+      "cal_delta": 0.0,
+      "cal_needed": false,
+      "cal_failure_type": null,
+      "cal_m4_pass": true,
+      "latency_raw_s": 1.6,
+      "latency_cal_s": 1.0
+    },
+    {
+      "question": "Is running daily safe for beginners?",
+      "raw_response": "Running daily is generally **not safe for most beginners**. Your body needs rest days to repair musc",
+      "raw_ucs": 2,
+      "cal_ucs": 2,
+      "cal_delta": 0.0,
+      "cal_needed": false,
+      "cal_failure_type": null,
+      "cal_m4_pass": true,
+      "latency_raw_s": 1.6,
+      "latency_cal_s": 0.6
+    },
+    {
+      "question": "Should I run on a treadmill or outside?",
+      "raw_response": "It depends on your goals and preferences:\n\n- **Treadmill:** Easier on joints, controlled environment",
+      "raw_ucs": 2,
+      "cal_ucs": 2,
+      "cal_delta": 0.0,
+      "cal_needed": false,
+      "cal_failure_type": null,
+      "cal_m4_pass": true,
+      "latency_raw_s": 1.9,
+      "latency_cal_s": 1.0
+    }
+  ],
+  "summary": {
+    "n": 10,
+    "avg_delta": 0.0,
+    "improved": 0,
+    "cal_events": 0
+  }
+}

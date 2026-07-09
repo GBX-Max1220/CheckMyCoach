@@ -1,0 +1,73 @@
+% Research Overview — MaxFitCalib-Bench + UCS Framework + CheckMyCoach
+% Compile: pdflatex fig2_overview.tex
+\documentclass[tikz, border=10pt]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{mathptmx}
+
+\usetikzlibrary{shapes.geometric, arrows, positioning, fit}
+
+\begin{document}
+
+\tikzstyle{box} = [rectangle, minimum width=3.5cm, minimum height=1.2cm,
+                   text centered, draw=black, font=\small]
+\tikzstyle{arrow} = [thick, ->, >=stealth]
+\tikzstyle{dim} = [font=\scriptsize, text=gray!70]
+
+\begin{figure}
+\centering
+\begin{tikzpicture}[node distance=1.8cm]
+
+% === Top row: Problem ===
+\node (problem) [box, fill=red!15, minimum width=10cm] {
+    \textbf{Problem} \\[2pt]
+    LLMs produce \emph{Pseudo-precise} outputs that sound authoritative \\
+    but lack evidence support — the \textbf{precision illusion}
+};
+
+% === Middle row: Two tracks ===
+
+% Left: Benchmark
+\node (benchmark) [box, below of=problem, xshift=-3.5cm, yshift=-0.5cm, fill=blue!15] {
+    \textbf{1. MaxFitCalib-Bench} \\[2pt]
+    126 questions $\times$ 2 models \\
+    UCS Engine evaluation \\
+    $\rightarrow$ 6.3\% Pseudo-precise rate
+};
+
+% Right: Taxonomy
+\node (ucs) [box, below of=problem, xshift=3.5cm, yshift=-0.5cm, fill=green!15] {
+    \textbf{2. UCS Framework} \\[2pt]
+    4-level taxonomy \\
+    Overconfident / Pseudo-precise \\
+    Hedged / Calibrated
+};
+
+% === Bottom row: System ===
+\node (system) [box, below of=problem, yshift=-3.2cm, fill=orange!15] {
+    \textbf{3. CheckMyCoach} \\[2pt]
+    M1 Detection $\rightarrow$ M2 Diagnosis \\
+    M3 Correction $\rightarrow$ M4 Validation
+};
+
+% Arrows: problem to approaches
+\draw [arrow] (problem.south) -- ++(0,-0.3) -| (benchmark.north);
+\draw [arrow] (problem.south) -- ++(0,-0.3) -| (ucs.north);
+
+% Arrow: benchmark + ucs to system
+\draw [arrow] (benchmark.south) -- ++(0,-0.4) -| (system.north west);
+\draw [arrow] (ucs.south) -- ++(0,-0.4) -| (system.north east);
+
+% Annotation: benchmark → ucs link
+\draw [darrow, bend left=30] (benchmark.east) to node[above, font=\tiny] {UCS scoring} (ucs.west);
+
+% Bottom annotation
+\node [dim, below of=system, yshift=-0.3cm] {
+    Collectively: an HCI-operable bridge between calibration metrics and interaction design
+};
+
+\end{tikzpicture}
+\caption{Research framework overview. The UCS taxonomy and MaxFitCalib-Bench benchmark characterize the precision illusion problem; CheckMyCoach provides an automated correction pipeline.}
+\label{fig:overview}
+\end{figure}
+
+\end{document}

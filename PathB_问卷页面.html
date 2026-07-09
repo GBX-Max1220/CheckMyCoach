@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>AI健身建议评估</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+body { font-family: -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif; background: #f5f7fa; padding: 12px; color: #222; }
+.container { max-width: 600px; margin: 0 auto; display: none; }
+.container.active { display: block; }
+
+/* 首页 */
+h1 { font-size: 22px; margin-bottom: 8px; }
+h2 { font-size: 18px; margin-bottom: 12px; }
+.section { background: #fff; border-radius: 10px; padding: 16px; margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+.section p { font-size: 14px; line-height: 1.7; color: #444; margin-bottom: 8px; }
+.btn { display: block; width: 100%; padding: 14px; border: none; border-radius: 10px; font-size: 17px; font-weight: 600; cursor: pointer; touch-action: manipulation; text-align: center; }
+.btn-primary { background: #1a73e8; color: #fff; }
+.btn-primary:active { background: #1557b0; }
+.btn-success { background: #34a853; color: #fff; }
+.btn-success:active { background: #2d9249; }
+
+/* 量表 */
+.scale-row { display: flex; gap: 4px; margin: 8px 0; flex-wrap: wrap; }
+.scale-row button { flex: 1 0 36px; height: 42px; border: 2px solid #ddd; background: #fff; border-radius: 8px; font-size: 16px; font-weight: 600; color: #555; cursor: pointer; touch-action: manipulation; min-width: 36px; }
+.scale-row button.on { border-color: #1a73e8; background: #e8f0fe; color: #1a73e8; }
+.scale-label { display: flex; justify-content: space-between; font-size: 12px; color: #999; margin-bottom: 10px; }
+
+/* 题项 */
+.item-card { background: #fff; border-radius: 10px; padding: 16px; margin-bottom: 16px; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+.item-num { font-size: 12px; color: #aaa; margin-bottom: 6px; }
+.item-text { font-size: 16px; line-height: 1.8; margin-bottom: 16px; color: #222; font-weight: 500; }
+.q-label { font-size: 14px; font-weight: 600; color: #333; margin-bottom: 6px; margin-top: 12px; }
+.q-label:first-child { margin-top: 0; }
+
+/* 判断按钮 */
+.judge-btns { display: flex; gap: 8px; }
+.judge-btns button { flex: 1; height: 48px; border: 2px solid #ddd; background: #fff; border-radius: 10px; font-size: 15px; cursor: pointer; touch-action: manipulation; }
+.judge-btns button.correct { border-color: #34a853; color: #34a853; }
+.judge-btns button.correct.on { background: #e6f4ea; }
+.judge-btns button.incorrect { border-color: #ea4335; color: #ea4335; }
+.judge-btns button.incorrect.on { background: #fce8e6; }
+.judge-btns button.unsure { border-color: #fbbc04; color: #fbbc04; }
+.judge-btns button.unsure.on { background: #fef7e0; }
+
+/* 进度 */
+.progress-bar { height: 4px; background: #e0e0e0; border-radius: 2px; margin-bottom: 20px; }
+.progress-fill { height: 100%; background: #1a73e8; border-radius: 2px; transition: width .3s; }
+
+/* 结果页 */
+.result-box { background: #e8f5e9; border-radius: 10px; padding: 20px; text-align: center; }
+.result-box .code { font-size: 32px; font-weight: 700; letter-spacing: 6px; color: #1a73e8; margin: 12px 0; }
+.mailto-btn { display: inline-block; padding: 14px 24px; background: #1a73e8; color: #fff; border-radius: 10px; text-decoration: none; font-size: 17px; font-weight: 600; margin-top: 12px; }
+
+/* TLX */
+.tlx-row { margin-bottom: 14px; }
+.tlx-row .tlx-label { font-size: 14px; margin-bottom: 4px; color: #333; }
+</style>
+</head>
+<body>
+<div class="container active" id="page-consent">
+  <h1>💪 AI健身建议评估</h1>
+  <div class="section">
+    <p>本研究旨在了解用户如何评估AI生成的运动健康建议。所有数据仅用于学术研究，匿名处理。</p>
+    <p>你将会看到25条AI生成的健身建议（含1道注意力检查题），每条请回答：</p>
+    <p>① 这条建议正确还是错误？<br>② 你有多确定？<br>③ 这条建议听起来有多确定？</p>
+    <p><strong>预计时间：</strong>12-15分钟</p>
+    <p><strong>联系方式：</strong>如有问题请联系微信 <strong>Max-GuoBX</strong></p>
+  </div>
+  <button class="btn btn-primary" onclick="startExperiment()">开始评估 →</button>
+</div>
+
+<div class="container" id="page-questionnaire">
+  <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:4%"></div></div>
+  <div class="item-card" id="item-card"></div>
+  <button class="btn btn-primary" id="next-btn" onclick="nextItem()" disabled>下一题</button>
+</div>
+
+<div class="container" id="page-tlx">
+  <h2>📋 最后几个问题</h2>
+  <div class="section">
+    <p>回顾整个评估过程，请回答以下问题：</p>
+    <div class="tlx-row">
+      <div class="tlx-label">1. 完成这个判断任务，你需要投入多少脑力（思考、决策、回忆等）？</div>
+      <div class="scale-label"><span>1=非常低</span><span>7=非常高</span></div>
+      <div class="scale-row" id="tlx-mental"></div>
+    </div>
+    <div class="tlx-row">
+      <div class="tlx-label">2. 你需要付出多少努力才能完成判断？</div>
+      <div class="scale-label"><span>1=非常少</span><span>7=非常多</span></div>
+      <div class="scale-row" id="tlx-effort"></div>
+    </div>
+    <div class="tlx-row">
+      <div class="tlx-label">3. 在判断过程中，你感到多少困惑、压力或沮丧？</div>
+      <div class="scale-label"><span>1=非常低</span><span>7=非常高</span></div>
+      <div class="scale-row" id="tlx-frustration"></div>
+    </div>
+  </div>
+  <button class="btn btn-primary" id="tlx-btn" onclick="submitTLX()" disabled>提交</button>
+</div>
+
+<div class="container" id="page-done">
+  <div class="result-box">
+    <h2>✅ 已完成评估</h2>
+    <p>感谢你的参与！</p>
+    <p>请将下方的验证码通过微信发送给 <strong>Max-GuoBX</strong>，</p>
+    <p>或将下载的数据文件一并发送，方便我对账。</p>
+    <div class="code" id="verify-code">----</div>
+    <p style="font-size:14px;color:#555;margin-top:16px;"><strong>请下载数据文件，通过微信发送给 Max-GuoBX</strong></p>
+    <div id="download-area" style="margin-top:12px;"></div>
+    <p style="font-size:12px;color:#999;margin-top:12px;">备用：<a id="mailto-link" href="#" style="color:#1a73e8;">📧 通过邮件发送</a></p>
+  </div>
+</div>
+
+<script>
+// ==================== 24条刺激材料 ====================
+// ⚠️ 重要：盲评数据回来后，用筛选出的24条替换下方数组！
+// 当前为临时填充数据，正式投放前必须更新。
+const ITEMS = [
+  // TEMPLATE_DOMINANCE 示例 (blind review后替换)
+  {text:"按摩疗法是目前公认最有效的运动恢复手段，没有任何其他恢复方法可以与按摩相提并论。大量研究已经明确证实按摩能够显著加速肌肉力量恢复、彻底消除延迟性肌肉酸痛并大幅降低体内炎症水平。所有专业运动员都应该在每次高强度训练后立即接受至少30分钟的专业按摩治疗，这是确保训练效果最大化且防止运动损伤的必要手段。",source:"RCV-006",ucs:"Overconfident"},
+  {text:"科学研究表明在训练结束后的0-2小时黄金窗口内进行20分钟的专业按摩，可使肌肉酸痛感显著降低约38.7%。同时肌酸激酶水平可下降42.3%，力量恢复速度提升31.5%。最佳按摩施加压力为3.2kg/cm²，每周至少需要进行4.7次才能达到最优的恢复效果。",source:"RCV-006",ucs:"Pseudo-precise"},
+  {text:"按摩疗法被认为是控制血压的有效方法，尤其适合那些已经有一定锻炼基础的个体。然而，适合的运动方案可能因个人的健康状况、年龄等因素而异。因此建议在开始任何锻炼计划之前咨询专业人士，以确保安全。",source:"RCV-006",ucs:"Calibrated"},
+  {text:"关于按摩对运动后肌肉恢复的效果，目前的研究结论很大程度上取决于采用的研究方法和具体的测量指标。不同的研究报告采用了不同的按摩技术和时长，因此很难对效果给出一个统一的结论。",source:"RCV-006",ucs:"Hedged"},
+  {text:"力量训练是目前控制血压最有效的方法，效果远胜过有氧运动。2004年的旧指南严重低估了力量训练的价值，最新研究已经明确证实力量训练可使绝大多数高血压患者的血压恢复正常。",source:"REC-002",ucs:"Overconfident"},
+  {text:"ACSM的立场发生了转变。最新数据显示力量训练可使收缩压降低7.3mmHg、舒张压降低4.1mmHg，降压效果比有氧运动高出32.6%。每周3.7次每次42分钟，可在6.3周内使91.4%的患者血压达标。",source:"REC-002",ucs:"Pseudo-precise"},
+  {text:"ACSM关于力量训练对高血压效果的立场随着时间推移有所调整。不同版本指南中力量训练的推荐力度可能存在差异，具体变化建议查阅最新指南。",source:"REC-002",ucs:"Hedged"},
+  {text:"ACSM立场从2004年谨慎认可演变为2019年强烈推荐。荟萃分析显示力量训练可使收缩压平均降低2-4mmHg、舒张压降低1-2mmHg，与有氧运动结合效果更佳。",source:"REC-002",ucs:"Calibrated"},
+  {text:"老年人力量训练必须从中高强度开始才能有效，低强度完全是浪费时间。只有70%以上1RM才能刺激肌肉生长，所有65岁以上老年人都应从高强度开始。",source:"FAC-010",ucs:"Overconfident"},
+  {text:"65岁以上老年人力量训练的最佳起始强度为53.7%1RM，每组12.4次，每次2.8组，每周3.2次，每次37.5分钟——基于14682名老年人的数据分析。",source:"FAC-010",ucs:"Pseudo-precise"},
+  {text:"老年人力量训练的起始强度取决于个人健康状况和运动经验，从较低强度开始更安全。建议在专业指导下根据个人情况确定。",source:"FAC-010",ucs:"Hedged"},
+  {text:"ACSM 2022年指南推荐65岁以上初学力量者从40-60%1RM或RPE 5-6/10开始，每次1-2组每组10-15次。荟萃分析证实此强度可有效提升肌肉力量。",source:"FAC-010",ucs:"Calibrated"},
+  {text:"主动恢复明显优于被动恢复，所有运动员都应立即进行主动恢复。被动恢复过时且效率低下，主动恢复能更好地促进恢复并提高后续表现。",source:"RCV-003",ucs:"Overconfident"},
+  {text:"主动恢复可使血乳酸清除提高34.7%，比被动恢复快2.8倍。最佳方式为42.6%VO₂max强度骑行18.3分钟，超过21.5分钟效果下降16.8%。",source:"RCV-003",ucs:"Pseudo-precise"},
+  {text:"主动恢复和被动恢复哪种更优取决于训练类型、强度和个人差异。不同情况各有优势，无法统一推荐。",source:"RCV-003",ucs:"Hedged"},
+  {text:"2018年Cochrane综述和2020年BJSM荟萃分析表明，主动恢复相比被动恢复可加速血乳酸清除约20-35%，但在长期适应指标上无显著优势。",source:"RCV-003",ucs:"Calibrated"},
+  {text:"极量运动测试是唯一可靠的体能评估方法，次极量测试应被淘汰。任何严肃评估都必须用直接测量VO₂max的极量测试。",source:"SCE-015",ucs:"Overconfident"},
+  {text:"极量测试准确率比次极量测试高37.8%，误差仅±2.3%，次极量测试在47.6%的案例中偏差显著。85.3%的人群应优先选择极量测试。",source:"SCE-015",ucs:"Pseudo-precise"},
+  {text:"运动测试方法的选择取决于评估目的、设备条件和健康状况，很难简单说哪种更好。",source:"SCE-015",ucs:"Hedged"},
+  {text:"次极量测试适用于初始筛查，安全省时<15分钟。极量测试是金标准但需医生监护。ACSM推荐从次极量开始，异常时升级至极量。",source:"SCE-015",ucs:"Calibrated"},
+  {text:"儿童举重会严重损伤生长板，任何儿童力量训练都极其危险，会对骨骼发育造成不可逆伤害。健身专业人士绝不应指导儿童进行任何负重训练。",source:"ADV-004",ucs:"Overconfident"},
+  {text:"儿童力量训练中骨骺损伤概率高达13.7%，比成人高4.2倍。超过8.1kg负重使损伤风险增加67.3%，受伤后有41.5%概率影响最终身高。",source:"ADV-004",ucs:"Pseudo-precise"},
+  {text:"关于儿童力量训练的安全性存在不同研究结论，取决于训练方式、监督质量和个体差异。",source:"ADV-004",ucs:"Hedged"},
+  {text:"该说法不准确。数十年研究均表明在监督下适龄力量训练对儿童安全有益。生长板损伤极为罕见，美国儿科学会和NSCA均推荐。",source:"ADV-004",ucs:"Calibrated"},
+  // 注意力检查题（不依赖位置，随 shuffle 随机出现）
+  {text:"请在此题选择「不确定」以确认您在认真作答。",source:"attention",ucs:"attention_check"},
+];
+
+// ==================== 配置 ====================
+// TODO: IRB 批后替换为你的邮箱
+const RECEIVER_EMAIL = 'gbx1220max@gmail.com';
+
+// ==================== 状态 ====================
+let state = {
+  order: [],           // 打乱后的题目顺序
+  current: 0,          // 当前题号
+  startTime: 0,        // 当前题开始时间
+  responses: [],       // 所有回答
+  tlx: {},             // NASA-TLX
+  verifyCode: '',      // 验证码
+  startExpTime: 0,     // 实验开始时间
+};
+
+// ==================== 工具函数 ====================
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+function showPage(id) {
+  document.querySelectorAll('.container').forEach(p => p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function genCode() {
+  return Math.random().toString(36).substring(2, 8).toUpperCase();
+}
+
+// ==================== 开始 ====================
+function startExperiment() {
+  state.order = shuffle([...Array(ITEMS.length).keys()]);
+  state.current = 0;
+  state.responses = [];
+  state.startExpTime = Date.now();
+  showPage('page-questionnaire');
+  renderItem();
+}
+
+// ==================== 题项渲染 ====================
+function renderItem() {
+  const idx = state.order[state.current];
+  const item = ITEMS[idx];
+  const card = document.getElementById('item-card');
+  const total = ITEMS.length;
+
+  // 进度
+  document.getElementById('progress-fill').style.width = ((state.current + 1) / total * 100) + '%';
+
+  card.innerHTML = `
+    <div class="item-num">第 ${state.current+1}/${total} 条</div>
+    <div class="item-text">${item.text}</div>
+    <div class="q-label">① 你认为这条建议：</div>
+    <div class="judge-btns">
+      <button class="correct" onclick="setJudge(this,'correct')">正确</button>
+      <button class="incorrect" onclick="setJudge(this,'incorrect')">错误</button>
+      <button class="unsure" onclick="setJudge(this,'unsure')">不确定</button>
+    </div>
+    <div id="attention-hint" style="display:none;color:#ea4335;font-size:14px;margin-bottom:8px;">ⓘ 注意力检查题，请直接点击"不确定"继续</div>
+    <div class="q-label">② 你对自己的判断有多确定？</div>
+    <div class="scale-label"><span>1=非常不确定</span><span>7=非常确定</span></div>
+    <div class="scale-row" id="confidence-scale"></div>
+    <div class="q-label">③ 这条建议听起来有多确定？</div>
+    <div class="scale-label"><span>1=非常不确定</span><span>7=非常确定</span></div>
+    <div class="scale-row" id="certainty-scale"></div>
+  `;
+
+  // 渲染1-7按钮
+  ['confidence-scale','certainty-scale'].forEach(id => {
+    const row = document.getElementById(id);
+    for (let v = 1; v <= 7; v++) {
+      const b = document.createElement('button');
+      b.textContent = v;
+      b.onclick = () => {
+        row.querySelectorAll('button').forEach(bb => bb.className = '');
+        b.className = 'on';
+        // 更新 state
+        const key = id === 'confidence-scale' ? 'confidence' : 'certainty';
+        state.responses[state.current][key] = v;
+        checkReady();
+      };
+      row.appendChild(b);
+    }
+  });
+
+  // 重置
+  state.startTime = performance.now();
+  document.getElementById('next-btn').disabled = true;
+
+  // 注意力检查：基于题目类型，不依赖位置
+  const hint = document.getElementById('attention-hint');
+  if (hint) {
+    hint.style.display = item.ucs === 'attention_check' ? 'block' : 'none';
+  }
+
+  // 存储当前startTime到item
+  state.responses[state.current] = {
+    itemIdx: idx,
+    source: item.source,
+    ucs: item.ucs,
+    text: item.text.substring(0, 200),  // 截断防超长
+    judge: null,
+    confidence: null,
+    certainty: null,
+    rt: 0,
+    attentionCheck: item.ucs === 'attention_check',
+  };
+}
+
+function setJudge(btn, val) {
+  btn.parentElement.querySelectorAll('button').forEach(b => b.className = b.className.replace(' on',''));
+  btn.className += ' on';
+  state.responses[state.current].judge = val;
+  checkReady();
+}
+
+function checkReady() {
+  const resp = state.responses[state.current];
+  if (!resp) return;
+
+  // 注意力检查题：强制必须选"不确定"
+  const idx = state.order[state.current];
+  const item = ITEMS[idx];
+  if (item && item.ucs === 'attention_check') {
+    const hint = document.getElementById('attention-hint');
+    if (resp.judge !== null && resp.judge !== 'unsure') {
+      if (hint) hint.textContent = 'ⓘ 此题请点击"不确定"继续，请重新选择';
+      document.getElementById('next-btn').disabled = true;
+      return;
+    }
+    if (resp.judge === 'unsure' && hint) {
+      hint.textContent = '✅ 正确，请继续';
+      hint.style.color = '#34a853';
+    }
+  }
+
+  const ready = resp.judge !== null
+    && resp.confidence !== null
+    && resp.certainty !== null;
+  document.getElementById('next-btn').disabled = !ready;
+}
+
+// ==================== 下一题 ====================
+function nextItem() {
+  const resp = state.responses[state.current];
+  resp.rt = performance.now() - state.startTime;
+  // confidence/certainty 已在点击时写入 state，无需从 DOM 读取
+
+  state.current++;
+  if (state.current >= ITEMS.length) {
+    showPage('page-tlx');
+    renderTLX();
+  } else {
+    renderItem();
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+}
+
+// ==================== NASA-TLX ====================
+function renderTLX() {
+  ['tlx-mental','tlx-effort','tlx-frustration'].forEach(id => {
+    const row = document.getElementById(id);
+    row.innerHTML = '';
+    for (let v = 1; v <= 7; v++) {
+      const b = document.createElement('button');
+      b.textContent = v;
+      b.onclick = () => {
+        row.querySelectorAll('button').forEach(bb => bb.className = '');
+        b.className = 'on';
+        checkTLX();
+      };
+      row.appendChild(b);
+    }
+  });
+}
+
+function checkTLX() {
+  const mental = document.getElementById('tlx-mental').querySelector('.on');
+  const effort = document.getElementById('tlx-effort').querySelector('.on');
+  const frust = document.getElementById('tlx-frustration').querySelector('.on');
+  document.getElementById('tlx-btn').disabled = !(mental && effort && frust);
+}
+
+function submitTLX() {
+  state.tlx = {
+    mental: parseInt(document.getElementById('tlx-mental').querySelector('.on').textContent),
+    effort: parseInt(document.getElementById('tlx-effort').querySelector('.on').textContent),
+    frustration: parseInt(document.getElementById('tlx-frustration').querySelector('.on').textContent),
+  };
+  finishExperiment();
+}
+
+// ==================== 完成 ====================
+function finishExperiment() {
+  state.verifyCode = genCode();
+  const totalTime = Date.now() - state.startExpTime;
+
+  const data = {
+    version: '1.0',
+    timestamp: new Date().toISOString(),
+    totalTimeMs: totalTime,
+    verifyCode: state.verifyCode,
+    tlx: state.tlx,
+    responses: state.responses.map(r => ({
+      itemIdx: r.itemIdx,
+      source: r.source,
+      ucs: r.ucs,
+      text: r.text,
+      judge: r.judge,
+      confidence: r.confidence,
+      certainty: r.certainty,
+      rtMs: Math.round(r.rt),
+      attentionCheck: r.attentionCheck,
+    })),
+  };
+
+  const jsonStr = JSON.stringify(data);  // 无缩进，缩短 URL
+  const subject = `问卷数据 - ${state.verifyCode}`;
+  const mailto = `mailto:${RECEIVER_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(jsonStr)}`;
+
+  // 文件下载（主方案 — 微信发送）
+  const blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const downloadLink = document.createElement('a');
+  downloadLink.href = url;
+  downloadLink.download = `问卷数据_${state.verifyCode}.json`;
+  downloadLink.textContent = '📥 下载数据文件';
+  downloadLink.className = 'mailto-btn';
+  downloadLink.style.textDecoration = 'none';
+  document.getElementById('download-area').appendChild(downloadLink);
+
+  document.getElementById('verify-code').textContent = state.verifyCode;
+  document.getElementById('mailto-link').href = mailto;
+  showPage('page-done');
+}
+</script>
+</body>
+</html>
