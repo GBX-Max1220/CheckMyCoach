@@ -1,0 +1,8 @@
+{
+    "case_id": "CMC-EVAL-0001",
+    "question": "Should I squat below parallel?",
+    "category": "training",
+    "source": "dogfooding-batch",
+    "tags": ["form", "safety", "sample"],
+    "evidence_text": ""
+}

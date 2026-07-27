@@ -1,0 +1,131 @@
+{
+  "$id": "https://checkmycoach.local/evaluation/v1/CASE_SCHEMA.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "adjudication_status": {
+      "const": "constructor_pass_pending_independent_audit"
+    },
+    "ambiguity_flags": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "case_id": {
+      "pattern": "^CMC-[ABC]-[0-9]{3}$",
+      "type": "string"
+    },
+    "content_required_to_change": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "evidence_excerpt": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "failure_family": {
+      "enum": [
+        "unsupported_numerical_specificity",
+        "unsupported_factual_claim",
+        "missing_boundary"
+      ]
+    },
+    "failure_statement": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "forbidden_new_claims": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "input_question": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "linked_knowledge_object_ids": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "original_answer": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "primary_checks": {
+      "items": {
+        "type": "object"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "reference_correction": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "required_boundary": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "secondary_checks": {
+      "items": {
+        "type": "object"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "source_provenance": {
+      "required": [
+        "provenance_class",
+        "sources",
+        "historical_labels_used",
+        "gold_basis",
+        "dataset_version"
+      ],
+      "type": "object"
+    },
+    "supported_content_to_retain": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "target_failure_span": {
+      "minLength": 1,
+      "type": "string"
+    }
+  },
+  "required": [
+    "case_id",
+    "failure_family",
+    "source_provenance",
+    "input_question",
+    "original_answer",
+    "target_failure_span",
+    "failure_statement",
+    "linked_knowledge_object_ids",
+    "evidence_excerpt",
+    "supported_content_to_retain",
+    "content_required_to_change",
+    "required_boundary",
+    "forbidden_new_claims",
+    "reference_correction",
+    "primary_checks",
+    "secondary_checks",
+    "ambiguity_flags",
+    "adjudication_status"
+  ],
+  "title": "CheckMyCoach internal evaluation case v1",
+  "type": "object"
+}

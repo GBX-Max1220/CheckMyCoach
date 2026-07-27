@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CheckMyCoach Evaluation Case Input",
+  "description": "One evaluation case. Contains NO gold labels, NO expected outcomes.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "case_id",
+    "question",
+    "category",
+    "source"
+  ],
+  "properties": {
+    "case_id": {
+      "type": "string",
+      "description": "Immutable unique identifier. Format: CMC-EVAL-{NNNN}"
+    },
+    "question": {
+      "type": "string",
+      "description": "The natural-language fitness question"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "training",
+        "running",
+        "nutrition",
+        "safety",
+        "special_populations",
+        "recovery",
+        "supplements"
+      ]
+    },
+    "source": {
+      "type": "string",
+      "description": "Origin of this case"
+    },
+    "evidence_text": {
+      "type": "string",
+      "description": "Optional pre-supplied evidence text"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Free-form tags. MUST NOT contain gold information."
+    }
+  }
+}

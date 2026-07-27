@@ -1,0 +1,54 @@
+{
+  "manifest_version": "2.2.0",
+  "freeze_timestamp": "2026-07-28T00:00:00Z",
+  "protocol_version": "v2.2",
+  "git_commit": "07fad807f03460c8067df9293ee7ba5faa0162a3",
+  "python_version": "Python 3.12.0b4",
+  "created_at": "2026-07-28T00:00:00Z",
+  "purpose": "Immutable snapshot of all evaluation artifacts at freeze time. Any change after this point invalidates the execution.",
+  "model_config": {
+    "provider": "OpenRouter",
+    "model": "openai/gpt-4o-mini",
+    "temperature": 0.3,
+    "max_tokens": 1024,
+    "seed_policy": "not_specified"
+  },
+  "protocol_files": {
+    "protocol/EVALUATION_PROTOCOL.md": "1f67f685451d1aa4e1c5136cd4813dc4c2af6a8c6d556d801b2747ad65b3e51c",
+    "protocol/GENERIC_BASELINE_PROMPT.txt": "dcbcd0d762110266a74770a9b8def271675a6525c3bf3aa9eb78b0be792fa1ba"
+  },
+  "data_files": {
+    "data/blinded_cases_v2.2.jsonl": "7595c2af0a1e0bda38e44d5fe7ece6f8ef776a6c5b782b34184a386d6a75293b",
+    "data/oracle_diagnosis_v2.2.jsonl": "c39aa448bbc44f5f69c3abcaf8fc8e875acb36784749bfcf96d70628485470a6",
+    "data/cases.jsonl": "49bb577dd65051fc4a9d07dbb0e67cdaa8a3443129f2c3d485555b998b748ed3"
+  },
+  "runner_files": {
+    "runner/run_evaluation.py": "ee5e53672fd9049f4467e7748c0b08d29b4010e80a5633de49be96dd0393c876",
+    "runner/run_single_case.py": "48db1321981c65f44df4659602c662b7ac59db369b7db674a6464744583987b1",
+    "runner/conditions/original.py": "b29ccd84bcdd95d60103fbb40cf66b56e17d51239a00c0a9cebc55b97450017f",
+    "runner/conditions/generic.py": "a6804721fbd995470fa7b08960de1a8925e1ac47112e03aa09e7e572ebcb0e6d",
+    "runner/conditions/generic_plus.py": "0e85cbd422d5e1bbb909bbda2957b0aee3863ca4f37780633f38de9e9973f325",
+    "runner/conditions/checkmycoach.py": "794e4a3843ad6cb5cd66d6cd18376906cf541ddaa40f7bf6bf003a3940df223c",
+    "runner/evidence_router.py": "67be1b7d89d7278a056007392df06e8b96577e40577f963d14660e8629270eac",
+    "runner/generic_correction.py": "c7611f10765d4412b6acab1ff31b94c4072a39ee9ef34544900b0b48469dfcf4",
+    "runner/model_config.json": "e8762b8e3ba358270b943d9d290e285c8c44400d15adbced496faf63373f5478",
+    "runner/validate_environment.py": "ef0eeaf32dde25b17310a136827041d99dba17dd86add894689ab101fd519644",
+    "runner/preflight_v2_2.py": "5a51b343c36c41d64bc42050cc9f97a62bb53219f8a9bc6f772475862eba2232"
+  },
+  "pipeline_files": {
+    "pipeline/agent_pipeline.py": "416b67f00ad4ddac70e2294015a80ca6818be11b9ff768a285f40eedd9ce7b1f",
+    "calibration_agent/m1_detection.py": "f808bfc24e6f0d54da576a8760e10b000cbd49806e4c2cc6e71bbca6c097000a",
+    "calibration_agent/m2_diagnosis.py": "8e2eb3e4119355d5b5bbece52e5f19bfe0f063c1fad9256c5e3986a0cff79346",
+    "calibration_agent/m3_correction.py": "159cc1511a924a1e33e28d0e7802343ad0c18d7f628e94b2ee064f37e8050065",
+    "calibration_agent/m4_validation.py": "47e359e9e3e18532295ecf554bda0abe902168f0dc0555a3f56b3baad1624e40",
+    "config.py": "e2c6c47d7881d8e64fd677dae7dcc40c8a690ad68fc7dfeacec3f088eda830ea",
+    "schema.py": "bca1b5f5e809a7247159a73cacd52efcfa1f82838d7ae0e8a9e207de18d76ff0"
+  },
+  "scoring_files": {
+    "scoring/scorer.py": "77897ca30bf705928a2c6791a1f32c35bcfbd12cd88e64dc561f7f80fb7974e3",
+    "scoring/score_schema.py": "a31ca5670dda9e6c67f93e26f38828e9cc6c44e04c69c69024fe6d00a71acf04"
+  },
+  "combined_sha256": "769de82b74d0c08d7de282066dea466a80290060be92fcdc9388ec445c42d1aa",
+  "change_policy": "After freeze, any file modification requires a new manifest version. Do not overwrite v2.2 artifacts. Before each full run, execute preflight_v2_2.py to verify file integrity.",
+  "external_dependencies_hash": "61d39d1e1fef94e81cdf47ec213961347466d7a4531746c1100ad84dfdf35e3c"
+}

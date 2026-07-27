@@ -96,11 +96,22 @@ FALLBACK_PREFIXES = {
 
 # ==================== 核心函数 ====================
 
-def _build_prompt(failure_type: str, original_text: str) -> str:
+def _build_prompt(failure_type: str, original_text: str,
+                  question: str | None = None,
+                  evidence: str | None = None) -> str:
     tmpl = PROMPT_TEMPLATES.get(failure_type)
     if not tmpl:
         raise ValueError(f"Unknown failure type: {failure_type}")
-    return tmpl["user"].format(original_text=original_text)
+    base_prompt = tmpl["user"].format(original_text=original_text)
+    # Prepend question and evidence context to the existing prompt
+    context_parts = []
+    if question:
+        context_parts.append(f"Question: {question}")
+    if evidence:
+        context_parts.append(f"Evidence:\n{evidence}")
+    if context_parts:
+        return "\n\n".join(context_parts) + "\n\n" + base_prompt
+    return base_prompt
 
 
 def _call_llm(prompt: str, system_prompt: str) -> Optional[str]:
@@ -115,24 +126,37 @@ def _call_llm(prompt: str, system_prompt: str) -> Optional[str]:
             base_url="https://openrouter.ai/api/v1",
         )
         resp = client.chat.completions.create(
-            model=os.getenv("M3_MODEL", "openai/gpt-4o-mini"),
+            model="openai/gpt-4o-mini",  # Hardcoded for v2.2 — no env var override
             messages=[
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": prompt},
             ],
-            temperature=0.5,
-            max_tokens=300,
+            temperature=0.3,  # Protocol v2.2 §3.3 — equalized across all correction conditions
+            max_tokens=1024,  # Protocol v2.2 §3.3 — equalized across all correction conditions
         )
         return resp.choices[0].message.content.strip()
     except Exception as e:
         raise CorrectionError(f"LLM call failed: {e}")
 
 
-def correct(failure_type: str, original_text: str) -> CorrectionResult:
+def correct(failure_type: str, original_text: str,
+            question: str | None = None,
+            evidence: str | None = None) -> CorrectionResult:
+    """Apply type-aware LLM correction.
+
+    v2.2: Accepts question and evidence for evidence-aware correction.
+    The prompt includes question, evidence, failure type, and original text.
+
+    Args:
+        failure_type: M2 diagnosis (e.g. "cue_leakage").
+        original_text: The original answer to correct.
+        question: The original user question (evidence awareness).
+        evidence: Evidence excerpt text (evidence awareness).
+    """
     if failure_type not in PROMPT_TEMPLATES:
         raise ValueError(f"Unknown failure type: {failure_type}")
 
-    prompt = _build_prompt(failure_type, original_text)
+    prompt = _build_prompt(failure_type, original_text, question, evidence)
     sys_prompt = PROMPT_TEMPLATES[failure_type]["system"]
 
     try:

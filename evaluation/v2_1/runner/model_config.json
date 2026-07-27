@@ -1,0 +1,60 @@
+{
+  "freeze_timestamp": "2026-07-28",
+  "freeze_authority": "EVALUATION_V2_2_FREEZE",
+  "note": "v2.2: all three LLM conditions use identical generation parameters. No env var overrides. No sys.path injection to FitCalib-Bench.",
+
+  "original_condition": {
+    "role": "Pre-provided original answer. No API call.",
+    "model": "N/A (no API call)",
+    "provider": "N/A",
+    "temperature": null,
+    "max_tokens": null,
+    "seed_policy": "not_applicable"
+  },
+
+  "generic_correction": {
+    "role": "Single-pass LLM revision with question context and evidence payload.",
+    "provider": "openrouter",
+    "endpoint": "https://openrouter.ai/api/v1",
+    "model": "openai/gpt-4o-mini",
+    "temperature": 0.3,
+    "max_tokens": 1024,
+    "seed_policy": "not_specified",
+    "source": "evaluation/v2.1/runner/generic_correction.py correct()"
+  },
+
+  "generic_plus_correction": {
+    "role": "Generic correction plus oracle diagnosis.",
+    "provider": "openrouter",
+    "endpoint": "https://openrouter.ai/api/v1",
+    "model": "openai/gpt-4o-mini",
+    "temperature": 0.3,
+    "max_tokens": 1024,
+    "seed_policy": "not_specified",
+    "source": "evaluation/v2.1/runner/generic_correction.py correct()"
+  },
+
+  "cmc_m3_correction": {
+    "role": "Type-aware LLM correction within CheckMyCoach pipeline. Evidence fed from case file (no KC retrieval).",
+    "provider": "openrouter",
+    "endpoint": "https://openrouter.ai/api/v1",
+    "model": "openai/gpt-4o-mini",
+    "temperature": 0.3,
+    "max_tokens": 1024,
+    "seed_policy": "not_specified",
+    "source": "calibration_agent/m3_correction.py correct()"
+  },
+
+  "model_equality": {
+    "generic_equals_generic_plus_equals_cmc_m3": true,
+    "model_and_provider": "openai/gpt-4o-mini via OpenRouter for all three",
+    "temperature_equalized": true,
+    "temperature_value": 0.3,
+    "max_tokens_equalized": true,
+    "max_tokens_value": 1024,
+    "evidence_equalized": true,
+    "env_var_overrides_removed": true,
+    "runtime_import_verified": true,
+    "note": "All three correction conditions use identical generation parameters. Frozen local modules verified via test_import_provenance."
+  }
+}

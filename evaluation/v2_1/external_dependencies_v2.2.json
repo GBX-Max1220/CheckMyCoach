@@ -1,0 +1,15 @@
+{
+  "external_dependencies": {
+    "ucs_engine": {
+      "repo": "FitCalib-Bench",
+      "relative_path": "evaluation/ucs_engine.py",
+      "sha256": "845dc40af95d612c152ac043e8b16ff326ca634ae87056495af048670342fcc3",
+      "repo_path": "C:\\Users\\gbx12\\projects\\FitCalib-Bench",
+      "git_commit": "6dbbbd8",
+      "import_pattern": "pipeline.agent_pipeline._import_ucs_engine()",
+      "note": "UCS engine is an external dependency not under CheckMyCoach git control. Record its SHA256 here for provenance."
+    }
+  },
+  "freeze_timestamp": "2026-07-28T00:00:00Z",
+  "protocol_version": "v2.2"
+}

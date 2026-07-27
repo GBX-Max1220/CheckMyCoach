@@ -1,0 +1,28 @@
+{
+  "manifest_version": "1",
+  "generated_at": "2026-07-27T02:55:22.080096",
+  "files": {
+    "evaluation\\v1\\runner\\__init__.py": "e38c72754bc4e7ce61694472f8c0fd6fb09cbe0c76ca51534ba4e2f3813df874",
+    "evaluation\\v1\\runner\\__pycache__\\__init__.cpython-312.pyc": "c75922c521b33a99957b3c42513e57ed4ae65fa31ba3419af24c38cc7bc5437e",
+    "evaluation\\v1\\runner\\__pycache__\\__init__.cpython-314.pyc": "c38769483d89ffadb20a5dfcda7bc2a69280cccdd4f5b44cc2714f40c5214bd9",
+    "evaluation\\v1\\runner\\__pycache__\\freeze_manifest.cpython-312.pyc": "4621905fe3dfe77a976232ce0312ee82d971367f032452acdb830ab84606d07d",
+    "evaluation\\v1\\runner\\__pycache__\\generic_correction.cpython-312.pyc": "dc652c189c98f19ca064cb3600215eb6b2308653c3d4460a088ed2ef167f7370",
+    "evaluation\\v1\\runner\\__pycache__\\generic_correction.cpython-314.pyc": "f6d0ad7ffbd3b70f2092eabf85713260b89417609ba27e466585e85d63cdbebe",
+    "evaluation\\v1\\runner\\__pycache__\\run_evaluation.cpython-312.pyc": "f1988da6df5c0174936008b374cc4a3642fea8686e985a6f67a955b40dce1b6d",
+    "evaluation\\v1\\runner\\__pycache__\\run_single_case.cpython-312.pyc": "19844c5b4ac985fd9ecd13368aa14cd6b0d71cc4e496b8f1490e3346d1daf78f",
+    "evaluation\\v1\\runner\\__pycache__\\run_single_case.cpython-314.pyc": "89d807548cb71408dc68681c2cbacd950e1979ff9d9ff8b3df5519a97c723a24",
+    "evaluation\\v1\\runner\\__pycache__\\test_evaluation_runner.cpython-312-pytest-9.1.1.pyc": "162132f2355db7fb301dffdd353e8f378bfafb4a3483c2cd6e615e8bb9827775",
+    "evaluation\\v1\\runner\\__pycache__\\test_evaluation_runner.cpython-312.pyc": "6c6b26974f5e947ac0f56e248318d1d1b98503d9205c8bdfd35182c7c54dde56",
+    "evaluation\\v1\\runner\\__pycache__\\validate_environment.cpython-312.pyc": "361036a08c9211af6dc519e5003115995f2580add0ea3052da315f0f660b915c",
+    "evaluation\\v1\\runner\\EXECUTION_STATE_MACHINE.md": "57d82ede3766748fd469a568ed15cba98da954b4738d684cd3f8a1f3bf973909",
+    "evaluation\\v1\\runner\\generic_correction.py": "bab8eef9cf2fa4eade4554c344bafa5c28e901a4c3b21dbef3f9d3c7535b6f29",
+    "evaluation\\v1\\runner\\input.schema.json": "f6c71eb1cd7335d66c63ad07a8c9347c01dd23dacd3674aad7d12e4ef31a9fc5",
+    "evaluation\\v1\\runner\\PROVENANCE_SPEC.md": "2a0b5b707ae917c9685a849e74da55b79617969eff9662b1a840f82e44724232",
+    "evaluation\\v1\\runner\\result.schema.json": "ed1263baf0f8cfbd8ea710988c27a808e01a08ad5f4b1176d7e8f076f7e73b90",
+    "evaluation\\v1\\runner\\run_evaluation.py": "58fcc8e6ba8cdda8de2dd625230f628b47fc7b5c970e6e67cffe1d3783b401af",
+    "evaluation\\v1\\runner\\run_single_case.py": "363f8ec6df81fbaa554febafc15e1369767228e3f94027a18555274a71c78186",
+    "evaluation\\v1\\runner\\RUNNER_ARCHITECTURE.md": "d5bd51cab12a176b8bc645296042a739c127dcf3d719423605e2ad8628c38103",
+    "evaluation\\v1\\runner\\test_evaluation_runner.py": "4d1fe54ee48ccca59a2fe1c499f1cd4c260e9631674e05d3bbd23b6b2413bd30",
+    "evaluation\\v1\\runner\\validate_environment.py": "67e60504dd272a84d08ea83701a2862461912a5fdf4c8478019efd63af7e9e30"
+  }
+}

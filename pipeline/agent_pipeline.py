@@ -28,36 +28,43 @@ from schema import CalibrateResult
 # ============================================================
 
 def _import_ucs_engine():
+    """Lazy import: UCS engine from FitCalib-Bench (external dependency, not frozen)."""
     import sys
+    _ensure_repo_root_on_path()
     sys.path.insert(0, r"C:\Users\gbx12\projects\FitCalib-Bench")
     from evaluation.ucs_engine import evaluate_ucs
     return evaluate_ucs
 
 
-def _import_m1():
+def _ensure_repo_root_on_path():
+    """Ensure CheckMyCoach repo root is on sys.path for frozen local imports."""
     import sys
-    sys.path.insert(0, r"C:\Users\gbx12\projects\FitCalib-Bench\CheckMyCoach")
+    from pathlib import Path
+    root = str(Path(__file__).resolve().parent.parent)
+    if root not in sys.path:
+        sys.path.insert(0, root)
+
+
+def _import_m1():
+    _ensure_repo_root_on_path()
     from calibration_agent.m1_detection import needs_calibration
     return needs_calibration
 
 
 def _import_m2():
-    import sys
-    sys.path.insert(0, r"C:\Users\gbx12\projects\FitCalib-Bench\CheckMyCoach")
+    _ensure_repo_root_on_path()
     from calibration_agent.m2_diagnosis import diagnose
     return diagnose
 
 
 def _import_m3():
-    import sys
-    sys.path.insert(0, r"C:\Users\gbx12\projects\FitCalib-Bench\CheckMyCoach")
+    _ensure_repo_root_on_path()
     from calibration_agent.m3_correction import correct
     return correct
 
 
 def _import_m4():
-    import sys
-    sys.path.insert(0, r"C:\Users\gbx12\projects\FitCalib-Bench\CheckMyCoach")
+    _ensure_repo_root_on_path()
     from calibration_agent.m4_validation import validate
     return validate
 
@@ -231,11 +238,23 @@ def calibrate(
         t4 = time.perf_counter()
         correct = _import_m3()
         try:
-            correction = correct(diag.failure_type, response)
+            # Format evidence text from the evidence list
+            evidence_text = ""
+            ev_list = result.get("evidence") or []
+            if ev_list:
+                excerpts = [e.get("content", "") for e in ev_list if e.get("content")]
+                evidence_text = "\n".join(excerpts[:3])
+            correction = correct(
+                diag.failure_type, response,
+                question=question,
+                evidence=evidence_text,
+            )
             corrected_text = correction.corrected_text
+            result["m3_source"] = correction.source
         except Exception as exc:
             warnings.warn(f"M3 correction failed, using fallback: {exc}")
             corrected_text = response
+            result["m3_source"] = "fallback"
         timings["m3"] = (time.perf_counter() - t4) * 1000
 
         # ---- Step 5: M4 Validation ----
