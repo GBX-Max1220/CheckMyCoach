@@ -1,8 +1,10 @@
 # CheckMyCoach
 
-> One command to calibrate AI fitness advice.
+> Engineering prototype that routes selected outputs, assigns rule-based tags, generates candidate revisions, and runs deterministic surface checks.
 
-**Pipeline:** Evidence (Knowledge Compiler) → LLM → UCS → M1-M4 → Audit
+**Pipeline:** Retrieved records (Knowledge Compiler) → LLM → historical UCS heuristic → M1-M4 → Audit
+
+The module names and UCS fields are implementation interfaces, not validated detection, diagnosis, repair, confidence, or calibration measures.
 
 ---
 
@@ -76,7 +78,7 @@ result = calibrate_full(question="Should I squat below parallel?")
 
 print(result["ucs_score"])       # int 0-3
 print(result["failure_type"])    # "CUE_LEAKAGE" | None
-print(result["corrected_response"])  # calibrated version
+print(result["corrected_response"])  # candidate revision, if generated
 ```
 
 ### MCP
@@ -99,11 +101,11 @@ Key fields:
 |-------|------|-------------|
 | `success` | bool | Pipeline completed normally |
 | `ucs_score` | int | 0-3 (not semantic label) |
-| `needs_calibration` | bool | Whether M1 flagged it |
-| `failure_type` | str or null | TEMPLATE_DOMINANCE / CUE_LEAKAGE / CONTEXT_MISMATCH |
-| `score_delta` | float or null | UCS change after calibration (approximate) |
+| `needs_calibration` | bool | Whether the historical M1 routing heuristic flagged it |
+| `failure_type` | str or null | Rule tag: TEMPLATE_DOMINANCE / CUE_LEAKAGE / CONTEXT_MISMATCH |
+| `score_delta` | float or null | Internal UCS-heuristic delta; not a validated calibration outcome |
 | `latency_ms` | dict | Per-step latency |
-| `evidence` | list | Retrieved evidence from ACSM guidelines |
+| `evidence` | list | Retrieved Knowledge Compiler records; presence does not establish source support or scientific validity |
 
 ## Project Structure
 
@@ -129,7 +131,7 @@ CheckMyCoach/
 ## Dependencies
 
 - **Runtime:** pyyaml, requests, python-dotenv, mcp
-- **Knowledge Base:** [acsms12-manifest](https://github.com/GBX-Max1220/knowledge-compiler) (2305 structured objects)
+- **Knowledge Base:** [acsms12-manifest](https://github.com/GBX-Max1220/knowledge-compiler) (2,305 historical files; 2,294 unique IDs; partial provenance recovery)
 - **LLM:** DeepSeek Chat (api.deepseek.com) or OpenRouter
 
 ## Related
