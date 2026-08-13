@@ -2,6 +2,8 @@
 
 **Source**: UCS Engine (GPT-5.5 Instant judge) on 126 questions × 2 models
 
+> ⚠️ Historical draft. All tables and findings come from one early LLM-judge run (GPT-5.5 Instant) that was never human validated; no accuracy measure exists and the run is not reproducible. Retained as audit history; not publication-ready results.
+
 ---
 
 ## Table 1: UCS Distribution Across Models
@@ -24,12 +26,12 @@ Calibrated (3)       & 92.9\% & 92.9\% & 92.9\% & [89.1\%, 95.5\%] \\
 \end{table}
 ```
 
-*Note: Wilson 95\% confidence intervals for pooled proportions.
+_Note: Wilson 95\% confidence intervals for pooled proportions.
 Chi-square test comparing model distributions: $\chi^2(2) = 2.25$, $p = 0.32$,
 Cram\'{e}r's $V = 0.09$ (negligible effect size). UCS scores are treated as
 interval-level for analysis, consistent with common practice for Likert-type
 scales in HCI research [cite]. Median scores and IQR are reported in supplementary
-materials as a robustness check.*
+materials as a robustness check._
 
 ---
 
@@ -56,37 +58,28 @@ Gap (Consensus - Insufficient) & — & 0.46 & 1.00 \\
 \end{table}
 ```
 
-*Note: UCS scores range from 0 (Overconfident) to 3 (Calibrated). Maximum possible
+_Note: UCS scores range from 0 (Overconfident) to 3 (Calibrated). Maximum possible
 gap is 3.0 points. Per-cell N shows the number of questions per uncertainty type
-(pooled across models).*
+(pooled across models)._
 
 ---
 
-## Results Section — Revised Draft
+## Results Section — Historical Draft (superseded)
 
-We evaluated two LLMs (DeepSeek-chat and Qwen-plus) across 126 fitness advice questions
-using the UCS taxonomy with a GPT-5.5 Instant judge. The results reveal three main findings.
+The archived GPT-5.5 Instant judge labels are summarized below as historical label counts. They do not establish model behavior.
 
-**Finding 1: Precision Illusion Is the Dominant Failure Mode.**
-Across 252 evaluations (126 questions x 2 models), 92.9% of responses were classified as
-Calibrated (UCS=3). The remaining 6.3% (pooled) were classified as Pseudo-precise —
-responses citing precise figures (e.g., "38.7% improvement") without evidence support.
-No Overconfident (UCS=0) responses were detected. This distribution reveals a specific
-calibration failure mechanism: models do not produce overtly false claims, but they
-generate seemingly precise numerical statements that lack evidence grounding.
-This pattern is arguably more dangerous than explicit overconfidence, because precise
-numbers are harder for users to detect and question [cite precision heuristic literature].
+**Finding 1 (historical label distribution): Pseudo-precise was the largest non-Calibrated label class.**
+Across the archived 252 evaluations, 92.9% were labeled Calibrated and 6.3% (pooled)
+Pseudo-precise by the GPT-5.5 Instant judge; no Overconfident labels were produced.
+Because the judge was never human-validated and no accuracy measure exists, this is a
+label distribution, not an established finding about model behavior.
 
-While 6.3% may appear small, the cumulative user exposure is substantial. In a typical
-interaction where a model generates 10 advice statements, the probability of encountering
-at least one Pseudo-precise output is $1 - (0.937)^{10} \approx 48\%$. For a user
-performing 5 interactions per session over 3 sessions per week, weekly exposure to
-potentially undetectable misinformation exceeds 7 instances. In fitness advice—where
-a single erroneous recommendation about exercise load or injury management can lead to
-physical harm—this constitutes a non-trivial safety risk.
+Historical note: 1 − (0.937)^10 ≈ 48% is the arithmetic consequence of the 6.3%
+label share; it is not a validated exposure or safety estimate (no user study exists).
 
-**Finding 2: Calibration Gradient Is Present but Asymmetric Across Models.**
-Both models showed a measurable calibration gradient across uncertainty types (Table 2).
+**Finding 2 (historical): the archived labels show a calibration gradient.**
+In the archived labels, both models received higher scores on CONSENSUS than on
+INSUFFICIENT_EVIDENCE questions (Table 2).
 Responses to CONSENSUS questions received the highest scores (DeepSeek: 2.96, Qwen: 3.00),
 while INSUFFICIENT EVIDENCE questions received the lowest (DeepSeek: 2.50, Qwen: 2.00).
 However, the gradient magnitude differed substantially: Qwen showed a gap of 1.00 UCS points
@@ -95,30 +88,24 @@ This asymmetry suggests that while both models demonstrate evidence-aware calibr
 the sensitivity to evidence strength varies by model — a dimension not captured by
 accuracy-only evaluations.
 
-**Finding 3: Pseudo-precision Is Independent of Accuracy and Model Identity.**
-Despite Qwen achieving higher benchmark accuracy (93.7% vs 91.2%), the rate of Pseudo-precise
-responses was similar (7.1% vs 5.6%). A chi-square test confirmed no significant difference
-in overall UCS distribution between the two models ($\chi^2 = 2.25$, $p = 0.32$).
-This indicates that pseudo-precision is a systematic, model-independent failure mode:
-a model can be more accurate without being better calibrated, and the specific pattern
-of false precision persists across different model architectures and training data.
-This decoupling has a practical consequence: a benchmark reporting only accuracy would
-rank Qwen above DeepSeek and declare both "sufficiently reliable" — masking the ~6%
-of pseudo-precise outputs that human users cannot easily detect without domain expertise.
+**Finding 3 (historical): the two models received similar label distributions.**
+The Qwen baseline summary reported higher self-reported confidence (93.72 vs 91.16), yet the
+Pseudo-precise label shares were similar (7.1% vs 5.6%). A chi-square test on the archived
+labels found no significant difference between the models ($\chi^2 = 2.25$, $p = 0.32$).
+This is a historical label comparison; it does not establish a decoupling of accuracy from
+calibration, because no accuracy measure was validated.
 
+## Paper Narrative Positioning (historical; construct retired)
 
-## Paper Narrative Positioning
-
-**Core narrative**: Not "models are dangerously overconfident" (the data doesn't support this),
-but "models create a precision illusion — their primary calibration failure is generating
-seemingly precise but unsupported numerical claims, which is harder for users to detect
-than overt overconfidence."
+**Historical core narrative**: Not "models are dangerously overconfident" (the archived labels
+do not support this), but "models create a precision illusion — their primary calibration
+failure is generating seemingly precise but unsupported numerical claims, which is harder
+for users to detect than overt overconfidence."
 
 **Why this is a stronger HCI story**: It connects to the precision heuristic in judgment
 and decision-making — people trust more precise-sounding information even when they know
 the precision is unwarranted. This makes the problem inherently about human perception,
 not just model behavior.
-
 
 ## Limitations to Address in Paper
 
